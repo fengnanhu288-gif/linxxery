@@ -3,47 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>浙江省交互地图 · linxxery.com</title>
-<link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<title>linxxery</title>
 <style>
-  * { margin:0; padding:0; }
-  html, body, #map { width:100%; height:100vh; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#fff;font-family:"Microsoft YaHei","PingFang SC",sans-serif;
+}
+.logo{font-size:56px;font-weight:700;color:#333;margin-bottom:8px;letter-spacing:2px}
+.logo span{color:#4e6ef2}
+.sub{font-size:14px;color:#999;margin-bottom:36px}
+.search-wrap{display:flex;align-items:center;width:640px;max-width:90vw;
+  border:2px solid #e0e0e0;border-radius:28px;overflow:hidden;transition:border-color .2s}
+.search-wrap:focus-within{border-color:#4e6ef2}
+.search-wrap input{flex:1;border:none;outline:none;padding:14px 20px;font-size:16px}
+.search-wrap input::placeholder{color:#bbb}
+.search-wrap button{background:#4e6ef2;color:#fff;border:none;padding:14px 28px;font-size:16px;
+  cursor:pointer;transition:background .2s;white-space:nowrap}
+.search-wrap button:hover{background:#3b5de7}
+.links{margin-top:40px;display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+.links a{color:#666;text-decoration:none;font-size:14px;transition:color .2s}
+.links a:hover{color:#4e6ef2}
+.footer{position:fixed;bottom:20px;color:#bbb;font-size:12px}
 </style>
 </head>
 <body>
-<div id="map"></div>
-<script src="https://cdn.bootcdn.net/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script>
-var map = L.map('map').setView([29.5, 120.5], 8);
-
-L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}', {
-    subdomains: '1234',
-    attribution: 'linxxery.com'
-}).addTo(map);
-
-var cities = [
-    ['杭州(省会)', 30.274, 120.155],
-    ['宁波', 29.868, 121.550],
-    ['温州', 27.994, 120.699],
-    ['嘉兴', 30.747, 120.756],
-    ['湖州', 30.893, 120.088],
-    ['绍兴', 30.031, 120.580],
-    ['金华', 29.079, 119.652],
-    ['衢州', 28.936, 118.875],
-    ['舟山', 30.036, 122.207],
-    ['台州', 28.656, 121.421],
-    ['丽水', 28.467, 119.923]
-];
-
-cities.forEach(function(c) {
-    L.marker([c[1], c[2]]).addTo(map).bindPopup('<b>'+c[0]+'</b>');
-});
-
-L.control({position:'topleft'}).onAdd = function() {
-    var d = document.createElement('div');
-    d.innerHTML = '<div style="background:rgba(0,0,0,0.7);color:white;padding:10px 14px;border-radius:6px;font:14px Microsoft YaHei,sans-serif;"><b>浙江省</b> · 11市<span style="font-size:11px;opacity:0.6;margin-left:8px;">linxxery.com</span></div>';
-    return d;
-};
-</script>
+<div class="logo">lin<span>x</span>xery</div>
+<div class="sub">搜索 · 发现 · 探索</div>
+<form class="search-wrap" action="https://www.baidu.com/s" target="_blank">
+  <input name="wd" type="text" placeholder="输入关键词搜索..." autofocus>
+  <button type="submit">搜 索</button>
+</form>
+<div class="links">
+  <a href="https://www.baidu.com">百度</a>
+  <a href="https://www.google.com">Google</a>
+  <a href="https://www.bing.com">Bing</a>
+  <a href="https://github.com">GitHub</a>
+</div>
+<div class="footer">&copy; 2026 linxxery.com</div>
 </body>
 </html>
