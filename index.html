@@ -13,7 +13,6 @@ body{
 }
 .logo{font-size:56px;font-weight:700;color:#333;margin-bottom:8px;letter-spacing:2px}
 .logo span{color:#4e6ef2}
-.sub{font-size:14px;color:#999;margin-bottom:36px}
 .search-wrap{display:flex;align-items:center;width:640px;max-width:90vw;
   border:2px solid #e0e0e0;border-radius:28px;overflow:hidden;transition:border-color .2s}
 .search-wrap:focus-within{border-color:#4e6ef2}
@@ -26,12 +25,41 @@ body{
 .links a{color:#666;text-decoration:none;font-size:14px;transition:color .2s}
 .links a:hover{color:#4e6ef2}
 .footer{position:fixed;bottom:20px;color:#bbb;font-size:12px}
+
+.gate-wrap{text-align:center}
+.gate-wrap h2{font-size:22px;color:#333;margin-bottom:20px;font-weight:400}
+.gate-wrap select{border:2px solid #e0e0e0;border-radius:8px;padding:10px 8px;font-size:15px;
+  outline:none;transition:border-color .2s;appearance:none;text-align:center;cursor:pointer;
+  background:#fff;color:#333;margin:0 4px}
+.gate-wrap select:focus{border-color:#4e6ef2}
+.gate-wrap .sep{font-size:18px;color:#999}
+.gate-wrap .btn{display:block;margin:16px auto 0;background:#4e6ef2;color:#fff;border:none;
+  border-radius:20px;padding:10px 48px;font-size:15px;cursor:pointer;transition:background .2s}
+.gate-wrap .btn:hover{background:#3b5de7}
+.gate-wrap .err{color:#e74c3c;font-size:13px;margin-top:10px;display:none}
+
+#main{display:none}
 </style>
 </head>
 <body>
-<div class="logo">打王者就找<span>林曦</span></div>
+
+<div class="gate-wrap" id="gate">
+  <h2>输入生日验证</h2>
+  <div>
+    <select id="year"><option value="">年</option></select>
+    <span class="sep">-</span>
+    <select id="month"><option value="">月</option></select>
+    <span class="sep">-</span>
+    <select id="day"><option value="">日</option></select>
+  </div>
+  <button class="btn" id="btn">确 认</button>
+  <div class="err" id="err">生日不正确</div>
+</div>
+
+<div id="main">
+<div class="logo" id="logo"></div>
 <form class="search-wrap" action="https://www.baidu.com/s" target="_blank">
-  <input name="wd" type="text" placeholder="输入关键词搜索..." autofocus>
+  <input name="wd" type="text" placeholder="输入关键词搜索...">
   <button type="submit">搜 索</button>
 </form>
 <div class="links">
@@ -40,6 +68,60 @@ body{
   <a href="https://www.bing.com">Bing</a>
   <a href="https://github.com">GitHub</a>
 </div>
+</div>
+
 <div class="footer">&copy; 2026 linxxery.com</div>
+
+<script>
+var gate=document.getElementById('gate');
+var main=document.getElementById('main');
+var err=document.getElementById('err');
+var y=document.getElementById('year');
+var m=document.getElementById('month');
+var d=document.getElementById('day');
+
+for(var i=1980;i<=2020;i++){
+  var o=document.createElement('option');
+  o.value=i;o.textContent=i;
+  y.appendChild(o);
+}
+for(var i=1;i<=12;i++){
+  var o=document.createElement('option');
+  o.value=i;o.textContent=i;
+  m.appendChild(o);
+}
+function fillDay(){
+  var v=parseInt(d.value)||0;
+  d.innerHTML='<option value="">日</option>';
+  var max=m.value==='2'?29:(m.value==='4'||m.value==='6'||m.value==='9'||m.value==='11'?30:31);
+  for(var i=1;i<=max;i++){
+    var o=document.createElement('option');
+    o.value=i;o.textContent=i;
+    if(i===Math.min(v,max))o.selected=true;
+    d.appendChild(o);
+  }
+}
+fillDay();
+m.addEventListener('change',fillDay);
+
+function check(){
+  if(y.value&&m.value&&d.value){
+    if(y.value==='2004'&&m.value==='3'&&d.value==='8'){
+      document.getElementById('logo').innerHTML='小胡枫楠最<span>漂亮</span>';
+      gate.style.display='none';
+      main.style.display='block';
+      err.style.display='none';
+    }else if(y.value==='2004'&&m.value==='12'&&d.value==='9'){
+      document.getElementById('logo').innerHTML='小韩明磊最喜欢胡枫楠哩<span>！</span>';
+      gate.style.display='none';
+      main.style.display='block';
+      err.style.display='none';
+    }else{
+      err.style.display='block';
+    }
+  }
+}
+document.getElementById('btn').addEventListener('click',check);
+</script>
 </body>
 </html>
